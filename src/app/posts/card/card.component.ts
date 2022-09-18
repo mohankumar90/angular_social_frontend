@@ -17,6 +17,7 @@ import * as internal from "assert";
 })
 export class CardComponent {
   @Input() post: IPost;
+  @Input() personId: string;
   @ViewChild("like", { static: false }) like: ElementRef;
   @ViewChild("dislike", { static: false }) dislike: ElementRef;
 
