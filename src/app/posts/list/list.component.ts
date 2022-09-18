@@ -20,6 +20,7 @@ import { element } from "protractor";
 export class ListComponent implements OnInit {
   allPosts$: Observable<IPost[]>;
   allPostss: IPost[] = [];
+  personId: string = "";
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -27,13 +28,13 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(queryParams => {
-      var personId = queryParams.get("personId");
+      this.personId = queryParams.get("personId");
       
       var url = Constants.posts + "listOfPosts";
       
       var payload = new FormData();
       
-      payload.append("personId", personId);
+      payload.append("personId", this.personId);
 
       this.http.post<any[]>(url, payload).subscribe(resp => {
 
@@ -47,7 +48,7 @@ export class ListComponent implements OnInit {
               createdOn: new Date(element.created),
               dislikes: 0,
               createdByName: resp["data"]["person_name"],
-              createdById: personId,
+              createdById: this.personId,
               avatar: resp["data"]["person_pic"]
             };
             this.allPostss.push(post);
@@ -60,6 +61,12 @@ export class ListComponent implements OnInit {
       });
     });
   }
+
+  checkCount() {
+    if (this.allPostss.length == 0)
+      return true;
+  }
+  
 }
 
 

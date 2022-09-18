@@ -8,6 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 import { Action } from "rxjs/internal/scheduler/Action";
 import { Router } from "@angular/router";
 import { windowWhen } from "rxjs/operators";
+import { AuthServicePerson } from "../services/auth.service_person";
 
 @Component({
   selector: "app-sign-in",
@@ -15,7 +16,8 @@ import { windowWhen } from "rxjs/operators";
   styleUrls: ["./sign-in.component.scss"]
 })
 export class SignInComponent {
-  constructor(private store: Store<IAppState>,
+  constructor(
+    private authServ: AuthServicePerson,
     private http: HttpClient,
     private router: Router) {}
 
@@ -30,6 +32,7 @@ export class SignInComponent {
 
     this.http.post(url, formData).subscribe(resp => {
       if (resp['status']) {
+        this.authServ.initializeAuthUser(resp["data"], value['username']);
         window.location.href="/post/list/" + resp["data"]["userid"];
       } else {
         this.wrongAlert = true;

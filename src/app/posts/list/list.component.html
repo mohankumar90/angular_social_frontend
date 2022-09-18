@@ -1,4 +1,8 @@
 <app-loader *ngIf="!(allPosts$ | async)?.length"></app-loader>
 <div class="wrapper" fxLayout="column">
   <app-card *ngFor="let post of allPosts$ | async" [post]="post"></app-card>
+  <div *ngIf="checkCount()" >
+    No posts found for your profile yet.
+  </div>
+  <app-create-post [personId]="personId"></app-create-post>
 </div>

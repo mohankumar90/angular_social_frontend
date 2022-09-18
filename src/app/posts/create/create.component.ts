@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { UploadService } from "../services/upload.service";
 import { Upload } from "../../shared/models/file";
 import { PostService } from "../services/post.service";
@@ -9,6 +9,8 @@ import { IUser } from "../../shared/interfaces/user";
 import { IAppState } from "src/app/+store";
 import { Store } from "@ngrx/store";
 import { CreatePost } from "src/app/+store/posts/actions";
+import { Constants } from "src/app/constants";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-create-post",
@@ -21,37 +23,34 @@ export class CreateComponent {
   private _isUpload: boolean = false;
   private _userData: IUser;
 
+  @Input() personId: string;
+
   constructor(
     private uploadService: UploadService,
     private snackbar: MatSnackBar,
     private authService: AuthService,
-    private store: Store<IAppState>
+    private http: HttpClient,
   ) {
     this._userData = this.authService.userData;
   }
 
   // Create post
   createPost(title, description) {
-    if (!this._isUpload) {
-      this.snackbar.open("Please upload file", "Undo", {
-        duration: 3000
-      });
-      return;
-    }
-    const post: IPost = {
-      id: Math.random().toString(),
-      avatar: this._userData.avatar,
-      createdOn: new Date(),
-      createdByName: this._userData.name,
-      createdById: this._userData.id,
-      title: title,
-      description: description,
-      imgName: this._selectedFiles.item(0).name,
-      imageLink: null,
-      likes: 0,
-      dislikes: 0
-    };
-    this.store.dispatch(new CreatePost(post));
+    var url = Constants.posts + "createPost";
+    
+    var payload = new FormData();
+      
+    payload.append("title", title);
+    payload.append("desc", description);
+    payload.append("userid", this.personId);
+
+    this.http.post(url, payload).subscribe(resp => {
+      if (resp["status"]) {
+        console.log("created post");
+      } else {
+        console.log("failed to create post");
+      }
+    });
   }
 
   // Detect file when is selected

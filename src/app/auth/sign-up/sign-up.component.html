@@ -93,14 +93,30 @@
         <div class="right" fxLayout="column">
           <mat-form-field>
             <input
+              #userNameInput="ngModel"
+              matInput
+              ngModel
+              id="name"
+              name="username"
+              type="text"
+              required
+              placeholder="Your Username"
+            />
+            <mat-error *ngIf="userNameInput.hasError('required')"
+              >Your Username is required.</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
               #fullNameInput="ngModel"
               matInput
               ngModel
               id="name"
-              name="name"
+              name="first_name"
               type="text"
               required
-              placeholder="Your name"
+              placeholder="Your Firstname"
             />
             <mat-error *ngIf="fullNameInput.hasError('required')"
               >Your name is required.</mat-error
@@ -119,6 +135,22 @@
               >Choosing avatar is required.</mat-error
             >
           </mat-form-field>
+
+          <mat-form-field>
+            <input
+              #countryInput="ngModel"
+              matInput
+              ngModel
+              id="country"
+              name="country"
+              type="text"
+              required
+              placeholder="Your Country"
+            />
+            <mat-error *ngIf="countryInput.hasError('required')"
+              >Your Country is required.</mat-error
+            >
+          </mat-form-field>
         </div>
       </div>
       <button
@@ -130,23 +162,6 @@
         Sign Up
       </button>
     </form>
-
-    <div class="divider-container" fxFlex fxLayoutAlign="center">
-      <div class="line"><mat-divider></mat-divider></div>
-      <div class="text ">Or</div>
-      <div class="line"><mat-divider></mat-divider></div>
-    </div>
-
-    <button
-      class="btn-sign-up"
-      mat-raised-button
-      color="primary"
-      fxFlex
-      fxLayoutAlign="center"
-      (click)="signUpGoogle()"
-    >
-      Continue with Google
-    </button>
 
     <div fxFlex fxLayoutAlign="center">
       <span
