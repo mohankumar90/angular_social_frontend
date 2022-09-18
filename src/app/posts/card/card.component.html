@@ -37,7 +37,7 @@
       <mat-icon>delete</mat-icon>
     </button>
 
-    <button *ngIf="!isDetailPage" (click)="getDetails(post.id)" mat-button>
+    <button *ngIf="!isDetailPage" (click)="getDetails(post.id, personId)" mat-button>
       <mat-icon>more_horiz</mat-icon>
     </button>
   </mat-card-actions>

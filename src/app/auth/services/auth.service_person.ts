@@ -20,7 +20,7 @@ import { IPerson } from "src/app/shared/interfaces/person";
   providedIn: "root"
 })
 export class AuthServicePerson {
-  _personData: IPerson = {"id": "", "username": "", "first_name": "", "email": "", "pic":""};
+  _personData: IPerson = {"id": "0", "username": "null", "first_name": "", "email": "", "pic":""};
   _loggedIn: boolean = false;
   constructor(
     private router: Router,

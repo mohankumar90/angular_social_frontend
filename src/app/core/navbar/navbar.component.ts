@@ -13,7 +13,7 @@ import { AuthServicePerson } from "src/app/auth/services/auth.service_person";
 export class NavbarComponent {
   @Output() sidenavToggle = new EventEmitter<void>();
 
-  constructor(private authService: AuthServicePerson) {}
+  constructor(private authService: AuthService) {}
 
   get isAuth() {
     return this.authService.isLoggedIn;
