@@ -1,0 +1,4 @@
+<app-loader *ngIf="!(allPosts$ | async)?.length"></app-loader>
+<div class="wrapper" fxLayout="column">
+  <app-card *ngFor="let post of allPosts$ | async" [post]="post"></app-card>
+</div>

@@ -1,0 +1,79 @@
+<div class="wrapper" fxLayoutAlign="center center">
+  <div
+    class="sign-in-section"
+    fxFlex
+    fxLayout="column"
+    fxLayoutGap="15px"
+    fxLayoutAlign="center"
+  >
+    <h2 fxLayoutAlign="center">Sign In !</h2>
+    <form
+      class="example-form"
+      #loginForm="ngForm"
+      (ngSubmit)="signIn(loginForm.value)"
+      fxLayout="column"
+    >
+      <mat-form-field>
+        <input
+          #username="ngModel"
+          matInput
+          ngModel
+          id="username"
+          type="text"
+          name="username"
+          required
+          placeholder="Username"
+        />
+
+        <mat-error *ngIf="username.hasError('required')">
+          Username is required.
+          </mat-error>
+        
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          #passwordInput="ngModel"
+          matInput
+          ngModel
+          id="password"
+          type="password"
+          name="password"
+          required
+          minlength="6"
+          placeholder="Password"
+        />
+        <mat-error *ngIf="passwordInput.hasError('required')"
+          >Password is required.</mat-error
+        >
+        <mat-error *ngIf="passwordInput.hasError('minlength')"
+          >Password must be at least 6 symbols.</mat-error
+        >
+        
+      </mat-form-field>
+      <button
+        class="btn-sign-in"
+        mat-raised-button
+        color="primary"
+        [disabled]="loginForm.invalid"
+      >
+        Log In
+      </button>
+      <mat-error *ngIf="checkForWrongAlert()"
+          >Wrong un and pw</mat-error
+        >
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div fxFlex fxLayoutAlign="center">
+      <a class="redirect" routerLink="/auth/forgot-password">Forgot Password?</a>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center">
+      <span
+        >Don't have an account?
+        <a class="redirect" routerLink="/auth/signup">Sign Up</a></span
+      >
+    </div>
+  </div>
+</div>

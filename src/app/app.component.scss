@@ -1,0 +1,25 @@
+mat-sidenav {
+  width: 250px;
+}
+.site {
+  // position: relative;
+  // min-height: 100vh;
+  background-image: url("../assets/images/angular-project-background.jpg");
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  min-height: 82.5vh;
+}
+.footer {
+  // position: absolute;
+  // bottom: 0;
+  // width: 100%;
+}
+
+@media(max-width: 900px){
+  .main {
+    background-image: none;
+  }
+}
