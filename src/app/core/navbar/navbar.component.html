@@ -16,7 +16,7 @@
     fxHide.lt-sm
   >
     <li *ngIf="isAuth">
-      <a [routerLink]="['/user', currentUser ? currentUser.id : '']">
+      <a [routerLink]="['/user']">
         <mat-icon>account_circle</mat-icon>
         My Profile</a
       >
@@ -62,19 +62,21 @@
     </li>
   </ul>
   <div *ngIf="isAuth" fxLayout fxLayoutGap="20px" fxShow fxHide.lt-sm>
-    <div
-      class="welcome-msg"
-      *ngIf="!!currentUser"
-      
-    >
-      <p class="welcome">Hello</p>
-      <img src="{{ currentUser.avatar }}" class="avatar" alt="No Avatar" />
-      <p class="user-name">Person</p>
-    </div>
     <div fxLayout fxLayoutAlign="center center" fxLayoutGap="10px">
       <a class="logout" (click)="signOut()"
         >Logout <span><mat-icon>cancel</mat-icon></span></a
       >
     </div>
   </div>
-</mat-toolbar>
+</mat-toolbar> 
+<!-- <li *ngIf="!isAuth">
+  <a routerLink="/home"><mat-icon>home</mat-icon>Home</a>
+</li>
+<li *ngIf="!isAuth">
+  <a routerLink="/auth/sign-in"> <mat-icon>person_pin</mat-icon>Login</a>
+</li>
+<div fxLayout fxLayoutAlign="center center" fxLayoutGap="10px">
+  <a class="logout" (click)="signOut()"
+    >Logout <span><mat-icon>cancel</mat-icon></span></a
+  >
+</div> -->

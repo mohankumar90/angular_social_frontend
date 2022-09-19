@@ -13,18 +13,24 @@ import { AuthServicePerson } from "src/app/auth/services/auth.service_person";
 export class NavbarComponent {
   @Output() sidenavToggle = new EventEmitter<void>();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private authServicePerson: AuthServicePerson) {}
 
   get isAuth() {
-    return this.authService.isLoggedIn;
+    let sesId = localStorage.getItem("socialSessionId");
+    if (sesId != null) {
+      return true; //this.authServicePerson.isLoggedIn;
+    }
+      
   }
 
   get currentUser() {
-    return this.authService.userData;
+    return this.authServicePerson.userData;
   }
 
   signOut() {
-    this.authService.signOut()
+    this.authServicePerson.signOut()
+    window.location.href = "home";
   }
 
   toggleSidenav() {

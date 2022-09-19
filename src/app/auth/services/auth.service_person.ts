@@ -36,6 +36,8 @@ export class AuthServicePerson {
     this._personData.pic = person.pic;
 
     this._loggedIn = true;
+
+    console.log("username, ", username);
   }
 
   get isLoggedIn(): boolean {
@@ -51,6 +53,7 @@ export class AuthServicePerson {
   signOut() {
     this._personData = {"id": "", "username": "", "first_name": "", "email": "", "pic":""};
     this._loggedIn = false;
+    localStorage.clear();
   }
 
 }

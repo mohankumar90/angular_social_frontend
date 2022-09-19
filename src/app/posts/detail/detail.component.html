@@ -7,6 +7,6 @@
   fxLayoutGap="15px"
   *ngIf="!!(post$ | async)"
 >
-  <app-card [post]="(post$ | async)"></app-card>
+  <app-card [post]="(post$ | async)" [personId]="(personId | async)" [likeCnt]="(detailsPageLikeCnt | async)"></app-card>
   <app-comments [post]="(post$ | async)" [personId]="(personId | async)" ></app-comments>
 </div>

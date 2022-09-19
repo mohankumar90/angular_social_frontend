@@ -21,7 +21,7 @@ export class CardComponent {
   @ViewChild("like", { static: false }) like: ElementRef;
   @ViewChild("dislike", { static: false }) dislike: ElementRef;
 
-  @Output() likeCnt: number;
+  @Input() likeCnt: number;
   private userData: IUser;
   isDetailPage = !!this.activatedRoute.snapshot.params.id;
   constructor(
@@ -51,7 +51,7 @@ export class CardComponent {
     this.http.post<any>(url, payload).subscribe(resp => {
       if (resp["status"]) {
         console.log(resp["data"]["likes"]);
-        return resp["data"]["likes"];
+        this.likeCnt = resp["data"]["likes"];
       }
     });
   }

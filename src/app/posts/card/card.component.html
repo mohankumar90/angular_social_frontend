@@ -21,21 +21,21 @@
   </mat-card-content>
   <mat-card-actions class="action-btn" fxLayout fxLayoutAlign="space-between">
     <div class="like-dislike-btn">
-      <button (click)="likePost(post.id, post.createdById)" mat-button>
+      <button (click)="likePost(post.id, personId)" mat-button>
         <mat-icon>thumb_up_alt</mat-icon>
       </button>
       <span #like class="likes">
-        {{ post.likes }}
+        {{ likeCnt }}
       </span>
     </div>
 
-    <button
+    <!-- <button
       *ngIf="isAuthor && isDetailPage"
       (click)="deletePost()"
       mat-button
     >
       <mat-icon>delete</mat-icon>
-    </button>
+    </button> -->
 
     <button *ngIf="!isDetailPage" (click)="getDetails(post.id, personId)" mat-button>
       <mat-icon>more_horiz</mat-icon>

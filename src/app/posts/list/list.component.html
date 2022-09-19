@@ -1,6 +1,15 @@
-<app-loader *ngIf="!(allPosts$ | async)?.length"></app-loader>
+<!-- <app-loader *ngIf="!(allPosts$ | async)?.length"></app-loader> -->
 <div class="wrapper" fxLayout="column">
-  <app-card *ngFor="let post of allPosts$ | async" [post]="post" [personId]="personId"></app-card>
+  <table style="background-color: rgba(255,255,225,0.5); text-align: right;">
+    <tr>
+      <td>
+        Wall: <input name="pageType" type="radio" (click)="pageTypeChanged('wall')" checked><br/>
+        My Posts: <input name="pageType" type="radio" (click)="pageTypeChanged('myposts')">
+      </td>
+    </tr>
+  </table>
+
+  <app-card *ngFor="let post of allPosts$ | async" [post]="post" [personId]="personId" [likeCnt]="post.likes"></app-card>
   <div *ngIf="checkCount()" >
     No posts found for your profile yet.
   </div>

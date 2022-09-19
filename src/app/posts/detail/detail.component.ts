@@ -7,6 +7,7 @@ import { Store } from "@ngrx/store";
 import { PostDetail } from "src/app/+store/posts/actions";
 import { HttpClient } from "@angular/common/http";
 import { Constants } from "src/app/constants";
+import { AuthServicePerson } from "src/app/auth/services/auth.service_person";
 
 @Component({
   selector: "app-details",
@@ -16,9 +17,11 @@ import { Constants } from "src/app/constants";
 export class DetailComponent implements OnInit {
   post$: Observable<IPost>;
   personId: Observable<string>;
+  detailsPageLikeCnt: Observable<number>;
   constructor(
     private activateRoute: ActivatedRoute,
     private http: HttpClient,
+    private authPerson: AuthServicePerson,
   ) {}
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class DetailComponent implements OnInit {
           createdById: resp["owner"]["person_id"],
           avatar: resp["owner"]["person_pic"],
         });
+        this.detailsPageLikeCnt = of(resp["likes"]);
       }
     });
   }

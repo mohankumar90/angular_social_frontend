@@ -47,6 +47,7 @@ export class CreateComponent {
     this.http.post(url, payload).subscribe(resp => {
       if (resp["status"]) {
         console.log("created post");
+        window.location.reload();
       } else {
         console.log("failed to create post");
       }

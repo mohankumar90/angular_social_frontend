@@ -33,6 +33,7 @@ export class SignInComponent {
     this.http.post(url, formData).subscribe(resp => {
       if (resp['status']) {
         this.authServ.initializeAuthUser(resp["data"], value['username']);
+        localStorage.setItem("socialSessionId", resp["data"]["personId"]);
         window.location.href="/post/list/" + resp["data"]["userid"];
       } else {
         this.wrongAlert = true;

@@ -12,6 +12,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Constants } from "src/app/constants";
 import { HttpClient } from "@angular/common/http";
 import { constants } from "os";
+import { AuthServicePerson } from "src/app/auth/services/auth.service_person";
+import { SignInComponent } from "src/app/auth/sign-in/sign-in.component";
 
 @Component({
   selector: "app-comments",
@@ -22,18 +24,23 @@ export class CommentsComponent implements OnInit {
   @Input() post: IPost;
   @Input() personId: string;
   allCommentss: Observable<any[]>;
+  // @Input() newCmt: Observable<any> = of({});
+
+  cmts: any[] = [];
+
   constructor(
-    private authService: AuthService,
+    private authService: AuthServicePerson,
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
 
     var url = Constants.posts + "getCommentsForPost/" + this.post.id;
 
     this.http.get<any[]>(url).subscribe(resp => {
-      var cmts = []
+      this.cmts = []
       resp.forEach(i => {
         var cmd = {
           "id": i["id"],
@@ -42,11 +49,15 @@ export class CommentsComponent implements OnInit {
           "person_name": i["owner"]["person_name"],
           "person_pic": i["owner"]["person_pic"],
         }
-        cmts.push(cmd);
+        this.cmts.push(cmd);
       });
-      this.allCommentss = of(cmts);
+      this.allCommentss = of(this.cmts);
     });
     
+    // this.newCmt.subscribe(cmdObj => {
+    //   this.cmts.push(cmdObj);
+    //   this.allCommentss = of(this.cmts);
+    // });
   }
 
   addComment(form: NgForm) {
@@ -70,6 +81,16 @@ export class CommentsComponent implements OnInit {
     this.http.post(url, payload).subscribe(resp => {
       if (!resp["status"]) {
         console.log("error on comment");
+      }
+      else {
+        this.cmts.push({
+          "id": resp["data"]["id"],
+          "person_pic": resp["data"]["pic"],
+          "person_name": resp["data"]["first_name"],
+          "personId": this.personId,
+          "cmd": form.value.comment,
+        });
+        this.allCommentss = of(this.cmts);
       }
     });
   }
